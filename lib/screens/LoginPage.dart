@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app_front/repository/user_repository.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
 import '../../app_styles.dart';
 import '../../size_configs.dart';
@@ -16,11 +17,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _loginKey = GlobalKey<FormState>();
-  final _emailControler =TextEditingController();
+  final _usernameControler =TextEditingController();
   final _passwordController = TextEditingController();
 
-  void onSubmit() {
-    _loginKey.currentState!.validate();
+  void onSubmit()async {
+    if(_loginKey.currentState!.validate()){
+      try{
+        UserRepository userRepository = UserRepository();
+        bool isLogin = await UserRepository().login(_usernameControler.text, _passwordController.text);
+        if(isLogin){
+          Navigator.pushNamed(context, '/nav');
+        }
+      }
+      catch(e){
+        debugPrint(e.toString());
+      }
+    }
   }
 
   List<FocusNode> _loginFocusNodes = [
@@ -130,15 +142,14 @@ class _LoginPageState extends State<LoginPage> {
                                       child: Column(
                                         children: [
                                           MyTextFormField(
-                                            controller: _emailControler,
-                                            hint: 'Email',
+                                            controller: _usernameControler,
+                                            hint: 'Username',
                                             icon: Icons.email_outlined,
                                             fillColor: kScaffoldBackground,
-                                            inputType:
-                                                TextInputType.emailAddress,
+                                            inputType:TextInputType.name,
                                             inputAction: TextInputAction.next,
                                             focusNode: _loginFocusNodes[0],
-                                            validator: emailValidator,
+                                            validator: usernameValidator,
                                           ),
                                           MyPasswordField(
                                             controller: _passwordController,

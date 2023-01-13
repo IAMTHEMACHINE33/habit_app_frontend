@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/screens/LoginPage.dart';
+import 'package:habit_app_front/screens/NavbarPage.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         // "/":(context)=>const Homepage()
         "/":(context) =>const SignUpPage(),
         "/login":(context)=>const LoginPage(), 
+        "/nav":(context)=>const NavbarPage(),
       },
     );
   }

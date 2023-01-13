@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user.dart';
+import '../response/login_response.dart';
 import '../utils/url.dart';
 import 'http_services.dart';
 
@@ -24,5 +25,31 @@ class UserApi{
       debugPrint(e.toString());
     }
     return isSignup;
+  }
+   Future<bool> login(String username, String password) async {
+    bool isLogin = false;
+    try {
+      var url = baseUrl + loginUrl;
+      var dio = HttpServices().getDioInstance();  
+      var response = await dio.post(
+        url,
+        data: {
+          "username": username,
+          "password": password,
+        },
+      );
+      
+      if (response.statusCode == 200) {
+        LoginResponse loginResponse = LoginResponse.fromJson(response.data);
+        token = loginResponse.token;  
+        if(loginResponse.success == true){
+          isLogin = true;
+        }
+        
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return isLogin;
   }
 }
