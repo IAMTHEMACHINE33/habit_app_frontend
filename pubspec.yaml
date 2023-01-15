@@ -41,6 +41,8 @@ dependencies:
   json_annotation: ^4.7.0
   json_serializable: ^6.5.4
   google_nav_bar: ^5.0.6
+  flutter_heatmap_calendar: ^1.0.5
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:

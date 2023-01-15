@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
@@ -44,22 +45,8 @@ class Homepage extends StatelessWidget {
                           Stack(
                             alignment: AlignmentDirectional.topEnd,
                             children: [
-                              const Icon(
-                                Icons.notifications,
-                                color: kScaffoldBackground,
-                              ),
-                              Padding(  
-                                padding:
-                                    const EdgeInsets.only(right: 2, top: 5),
-                                child: Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              )
+                                SvgPicture.asset('assets/icons/plus.svg'),
+                              
                             ],
                           ),
                         ],
@@ -77,7 +64,7 @@ class Homepage extends StatelessWidget {
                       const SizedBox(
                         height: 2,
                       ),
-                       Text(
+                      Text(
                         "Waheed Ashraf",
                         style: kTitle2,
                       ),
@@ -148,37 +135,32 @@ class Homepage extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children:  [
+                        children: [
                           Activitie(
                               Nameimage: 'cyclist.png',
                               ActivitieName: 'Cycling',
-                              Style:kOpacityTextStyle,
-                              ContainerColor:
-                                  kLightBoxBlue),
+                              Style: kOpacityTextStyle,
+                              ContainerColor: kLightBoxBlue),
                           Activitie(
                               Nameimage: 'runner.png',
                               ActivitieName: 'Running',
-                              Style:kOpacityTextStyle,
-                              ContainerColor:kLightBoxPink
-                                  ),
+                              Style: kOpacityTextStyle,
+                              ContainerColor: kLightBoxPink),
                           Activitie(
                               Nameimage: 'trainer.png',
                               ActivitieName: 'CrossFit',
-                              Style:kOpacityTextStyle,
-                              ContainerColor:
-                                  kLightBoxBlue),
+                              Style: kOpacityTextStyle,
+                              ContainerColor: kLightBoxBlue),
                           Activitie(
                               Nameimage: 'sit-up.png',
                               ActivitieName: 'Cycling',
-                              Style:kOpacityTextStyle,
-                              ContainerColor:
-                                  kLightBoxPink),
+                              Style: kOpacityTextStyle,
+                              ContainerColor: kLightBoxPink),
                           Activitie(
                               Nameimage: 'swimming.png',
                               ActivitieName: 'Swimming',
-                              Style:kOpacityTextStyle,
-                              ContainerColor:
-                                  kLightBoxBlue),
+                              Style: kOpacityTextStyle,
+                              ContainerColor: kLightBoxBlue),
                         ],
                       ),
                     ),
@@ -188,7 +170,7 @@ class Homepage extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                     Text(
+                    Text(
                       'Training Sessiones',
                       style: kBodyText2,
                     ),
@@ -198,13 +180,8 @@ class Homepage extends StatelessWidget {
 
                     Column(
                       children: [
-                        TrainingSession(
-                          StartTime: '2:00',
-                          EndTime: '3:30',
-                          SessionName: 'CrossFit',
-                          imageName: 'trainer.png',
-                          StackColor: kLightBoxBlue,
-                        ),
+                        Snaprow(),
+                        const SizedBox(height: 5),
                         TrainingSession(
                             StartTime: '3:30',
                             EndTime: '4:30',
@@ -237,3 +214,56 @@ class Homepage extends StatelessWidget {
     );
   }
 }
+
+class Snaprow extends StatelessWidget {
+  const Snaprow({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          // const SizedBox(width: 15),
+          Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child:
+                  Image.asset('assets/icons/man-avatar.png')
+              // Image.asset(friend.image),
+              ),
+          const SizedBox(width: 15),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 5),
+              Style.friendName("friend.name"),
+              Row(
+                children: [
+                  // Friend.statusIconMap[friend.status]!,
+                  Friend.statusIconMap[8]!,
+                  const SizedBox(width: 7),
+                  Style.chatInfo(
+                      // "${Friend.statusTextMap[friend.status]!} • ${friend.time}"),
+                      "asdasd")
+                ],
+              ),
+            ],
+          ),
+          const Spacer(),
+          // if (friend.streak > 1)
+          Style.streakText("12 🔥"),
+          // Style.streakText("${friend.streak.toString()} 🔥"),
+          // const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+}
+
