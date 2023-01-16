@@ -45,8 +45,7 @@ class Homepage extends StatelessWidget {
                           Stack(
                             alignment: AlignmentDirectional.topEnd,
                             children: [
-                                SvgPicture.asset('assets/icons/plus.svg'),
-                              
+                              SvgPicture.asset('assets/icons/plus.svg'),
                             ],
                           ),
                         ],
@@ -234,8 +233,7 @@ class Snaprow extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
               ),
-              child:
-                  Image.asset('assets/icons/man-avatar.png')
+              child: Image.asset('assets/icons/man-avatar.png')
               // Image.asset(friend.image),
               ),
           const SizedBox(width: 15),
@@ -266,4 +264,3 @@ class Snaprow extends StatelessWidget {
     );
   }
 }
-

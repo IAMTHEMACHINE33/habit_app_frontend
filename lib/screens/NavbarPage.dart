@@ -7,7 +7,9 @@ import 'package:habit_app_front/screens/LoginPage.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
 import 'package:habit_app_front/screens/calenderpage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
+import 'package:habit_app_front/screens/profilePage.dart';
 import 'package:habit_app_front/screens/searchPage.dart';
+import 'package:habit_app_front/screens/try.dart';
 
 class NavbarPage extends StatefulWidget {
   const NavbarPage({super.key});
@@ -18,31 +20,34 @@ class NavbarPage extends StatefulWidget {
 
 class _NavbarPageState extends State<NavbarPage> {
   int _selectedIndex = 0;
-  List<Widget> lstWidget =[
+  List<Widget> lstWidget = [
     const Homepage(),
     const CalenderPage(),
     const SearchBarPage(),
-    const Homepage(),
+    ProfilePage(),
+    // const MyWidget(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: lstWidget[_selectedIndex],),
+      body: Center(
+        child: lstWidget[_selectedIndex],
+      ),
       bottomNavigationBar: Container(
         color: Colors.black,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: GNav(
             backgroundColor: Colors.black,
             color: Colors.white,
             activeColor: Colors.white,
             tabBackgroundColor: Colors.grey.shade800,
             gap: 8,
-            onTabChange: (index){
-             setState(() {
-               _selectedIndex=index;
-             });
+            onTabChange: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
             },
             padding: EdgeInsets.all(18),
             tabs: const [
