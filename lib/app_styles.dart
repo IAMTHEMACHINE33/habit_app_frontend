@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './size_configs.dart';
-
 const Color kPrimaryColor = Color(0xffFC9D45);
 const Color kSecondaryColor = Color(0xff573353);
 const Color kScaffoldBackground = Color(0xffFFF3E9);
 const Color kLightBoxBlue = Color.fromARGB(255, 215, 250, 255);
 const Color kLightBoxPink =Color.fromARGB(255, 255, 200, 200);
+const Color kTextFieldColor = Color(0xFF7B61FF);
+const double defaultPadding = 16.0;
+
 final kTitle = TextStyle(
   fontFamily: 'Klasik',
   fontSize: SizeConfig.blockSizeH! * 7,
@@ -102,4 +104,20 @@ class Friend{
     13: const Icon(Icons.call, color: Style.chatColor, size: 15),
     14: const Icon(Icons.call_missed, color: Style.chatColor, size: 15),
   };
+}
+
+
+/// Convenience class to access application colors.
+abstract class AppColors {
+  /// Dark background color.
+  static const Color backgroundColor = Color(0xFF191D1F);
+
+  /// Slightly lighter version of [backgroundColor].
+  static const Color backgroundFadedColor = Color(0xFF191B1C);
+
+  /// Color used for cards and surfaces.
+  static const Color cardColor = Color(0xFF1F2426);
+
+  /// Accent color used in the application.
+  static const Color accentColor = Color(0xFFef8354);
 }

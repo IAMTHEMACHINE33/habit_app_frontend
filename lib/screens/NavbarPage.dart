@@ -7,6 +7,7 @@ import 'package:habit_app_front/screens/LoginPage.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
 import 'package:habit_app_front/screens/calenderpage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
+import 'package:habit_app_front/widgets/pop_up/popUpPage.dart';
 import 'package:habit_app_front/screens/profilePage.dart';
 import 'package:habit_app_front/screens/searchPage.dart';
 import 'package:habit_app_front/screens/try.dart';

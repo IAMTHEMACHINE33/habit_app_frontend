@@ -3,14 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
+import '../widgets/pop_up/hero_dialog_route.dart';
 import '../widgets/rows/Activities.dart';
 import '../widgets/rows/trainingsessions.dart';
+import '../widgets/pop_up/popUpPage.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const String _heroAddTodo = 'add-todo-hero';
     SizeConfig().init(context);
     double height = SizeConfig.blockSizeV!;
     return Scaffold(
@@ -42,20 +45,28 @@ class Homepage extends StatelessWidget {
                                 AssetImage('assets/icons/man-avatar.png'),
                             radius: 20,
                           ),
-                          Stack(
-                            alignment: AlignmentDirectional.topEnd,
-                            children: [
-                              SvgPicture.asset('assets/icons/plus.svg'),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(HeroDialogRoute(builder: (context) {
+                                return AddTodoPopupCard();
+                              }));
+                            },
+                            child: Hero(
+                              tag: _heroAddTodo,
+                              child: Stack(
+                                alignment: AlignmentDirectional.topEnd,
+                                children: [
+                                  SvgPicture.asset('assets/icons/plus.svg'),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       SizedBox(
                         height: height * 1,
                       ),
-
-                      // user name ==>>>
-
                       Text(
                         "welcome",
                         style: kBodyText1,
