@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app_front/repository/task_repository.dart';
 import 'package:habit_app_front/repository/user_repository.dart';
 
 import '../../app_styles.dart';
 import '../../models/dropdown_friend.dart';
+import '../../models/task.dart';
 import '../buttons/my_text_button.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
@@ -23,6 +25,22 @@ class _AddTodoPopupCardState extends State<AddTodoPopupCard> {
 
   String? _dropdownvalue;
   String? _value;
+  void onSubmit() async {
+    if (_taskKey.currentState!.validate()) {
+      try{
+        TaskRepository taskRepository = TaskRepository();
+        bool isAdded = await TaskRepository().addTask(_task_nameController.text,_penaltyControler.text,_value);
+        if(isAdded){
+          debugPrint("Done");
+        }
+      }
+      catch(e){
+        debugPrint(e.toString());
+      }
+      
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -127,11 +145,14 @@ class _AddTodoPopupCardState extends State<AddTodoPopupCard> {
                                 (DropdownFriend? items) {
                                   return DropdownMenuItem<String>(
                                     value: items!.id!,
-                                    child: Text(items.username!,style: TextStyle(
-                                          color: kScaffoldBackground,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),),
+                                    child: Text(
+                                      items.username!,
+                                      style: TextStyle(
+                                        color: kScaffoldBackground,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   );
                                 },
                               ).toList(),
@@ -182,7 +203,7 @@ class _AddTodoPopupCardState extends State<AddTodoPopupCard> {
                       ),
                       MyTextButton(
                         buttonName: 'Enter',
-                        onPressed: () {},
+                        onPressed: onSubmit,
                         bgColor: kScaffoldBackground,
                       ),
                     ],

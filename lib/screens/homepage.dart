@@ -309,7 +309,7 @@ class Snaprow extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {
-            print(snapshot.data![1]);
+            // print(snapshot.data![1]);
             return SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width,

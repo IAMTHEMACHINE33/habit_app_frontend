@@ -4,5 +4,6 @@ const registerUrl = "user/register";
 const loginUrl = "user/login";
 const getUserUrl = "user/load";
 const getFriendUrl = "user/load/friends";
-
+const addTaskUrl = "task/add";
+const addTaskPeerUrl = "task/add_peer";
 String? token;
