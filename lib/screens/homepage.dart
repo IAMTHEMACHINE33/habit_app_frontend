@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
+import '../repository/user_repository.dart';
+import '../response/user info/load_user_response.dart';
+import '../utils/url.dart';
 import '../widgets/pop_up/hero_dialog_route.dart';
 import '../widgets/rows/Activities.dart';
 import '../widgets/rows/trainingsessions.dart';
@@ -39,12 +42,49 @@ class Homepage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CircleAvatar(
-                            backgroundColor: kScaffoldBackground,
-                            backgroundImage:
-                                AssetImage('assets/icons/man-avatar.png'),
-                            radius: 20,
+                          FutureBuilder<LoadUserResponse?>(
+                            future: UserRepository().userInfo(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.data !=
+                                    null) {
+                                  return CircleAvatar(
+                                    backgroundColor: kScaffoldBackground,
+                                    backgroundImage:
+                                        // AssetImage('assets/icons/man-avatar.png'),
+                                        NetworkImage(
+                                            "$pic_Url${snapshot.data!.data!.profile_pic}"),
+                                    radius: 20,
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text("No data"),
+                                  );
+                                }
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text("${snapshot.error}");
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.blue),
+                                  ),
+                                );
+                              }
+                            },
                           ),
+                          // const CircleAvatar(
+                          //   backgroundColor: kScaffoldBackground,
+                          //   backgroundImage:
+                          //       AssetImage('assets/icons/man-avatar.png'),
+                          //   radius: 20,
+                          // ),
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context)
@@ -74,10 +114,42 @@ class Homepage extends StatelessWidget {
                       const SizedBox(
                         height: 2,
                       ),
-                      Text(
-                        "Waheed Ashraf",
-                        style: kTitle2,
+                      FutureBuilder<LoadUserResponse?>(
+                        future: UserRepository().userInfo(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.data != null) {
+                              return Text(
+                                "${snapshot.data!.data!.fullname}",
+                                style: kTitle2,
+                              );
+                            } else {
+                              return const Center(
+                                child: Text("No data"),
+                              );
+                            }
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.blue),
+                              ),
+                            );
+                          }
+                        },
                       ),
+                      // Text(
+                      //   "Waheed Ashraf",
+                      //   style: kTitle2,
+                      // ),
 
                       const SizedBox(
                         height: 30,

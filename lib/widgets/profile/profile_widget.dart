@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../../repository/user_repository.dart';
+import '../../response/user info/load_user_response.dart';
+import '../../utils/url.dart';
+
 class ProfileWidget extends StatelessWidget {
   // final String imagePath;
   final bool isEdit;
@@ -37,22 +41,47 @@ class ProfileWidget extends StatelessWidget {
     //     ? NetworkImage(imagePath)
     //     : FileImage(File(imagePath));
 
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          height: 100,
-          width: 100,
-          // color: Colors.amber,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-              image: NetworkImage(
-                  "https://www.pngall.com/wp-content/uploads/2/Mario-Vs-Donkey-Kong-PNG-HD-Image.png"),
+    return FutureBuilder<LoadUserResponse?>(
+      future: UserRepository().userInfo(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data != null) {
+            return ClipOval(
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  // color: Colors.amber,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image:  DecorationImage(
+                      image:  NetworkImage(
+                                            "$pic_Url${snapshot.data!.data!.profile_pic}"),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return const Center(
+              child: Text("No data"),
+            );
+          }
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
-          ),
-        ),
-      ),
+          );
+        }
+      },
     );
   }
 

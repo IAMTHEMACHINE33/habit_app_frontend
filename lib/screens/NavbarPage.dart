@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:habit_app_front/screens/LoginPage.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
+import 'package:habit_app_front/screens/badgesPage.dart';
 import 'package:habit_app_front/screens/calenderpage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
 import 'package:habit_app_front/widgets/pop_up/popUpPage.dart';
@@ -25,7 +26,8 @@ class _NavbarPageState extends State<NavbarPage> {
     const Homepage(),
     const CalenderPage(),
     const SearchBarPage(),
-    ProfilePage(),
+    // ProfilePage(),
+    BadgePage()
     // const MyWidget(),
   ];
 
