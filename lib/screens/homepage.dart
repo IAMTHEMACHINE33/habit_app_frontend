@@ -4,6 +4,7 @@ import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
 import '../repository/user_repository.dart';
+import '../response/friends info/load_friend_response.dart';
 import '../response/user info/load_user_response.dart';
 import '../utils/url.dart';
 import '../widgets/pop_up/hero_dialog_route.dart';
@@ -47,8 +48,7 @@ class Homepage extends StatelessWidget {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.done) {
-                                if (snapshot.data !=
-                                    null) {
+                                if (snapshot.data != null) {
                                   return CircleAvatar(
                                     backgroundColor: kScaffoldBackground,
                                     backgroundImage:
@@ -304,46 +304,72 @@ class Snaprow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: [
-          // const SizedBox(width: 15),
-          Container(
-              width: 50,
+    return FutureBuilder<List?>(
+      future: UserRepository().userFriend(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data != null) {
+            print(snapshot.data![1]);
+            return SizedBox(
               height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Image.asset('assets/icons/man-avatar.png')
-              // Image.asset(friend.image),
-              ),
-          const SizedBox(width: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              Style.friendName("friend.name"),
-              Row(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
                 children: [
-                  // Friend.statusIconMap[friend.status]!,
-                  Friend.statusIconMap[8]!,
-                  const SizedBox(width: 7),
-                  Style.chatInfo(
-                      // "${Friend.statusTextMap[friend.status]!} • ${friend.time}"),
-                      "asdasd")
+                  // const SizedBox(width: 15),
+                  Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child:  Image.asset('assets/icons/man-avatar.png')
+                      // Image.asset(friend.image),
+                      ),
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 5),
+                      Style.friendName("a"),
+                      Row(
+                        children: [
+                          // Friend.statusIconMap[friend.status]!,
+                          Friend.statusIconMap[8]!,
+                          const SizedBox(width: 7),
+                          Style.chatInfo(
+                              // "${Friend.statusTextMap[friend.status]!} • ${friend.time}"),
+                              "asdasd")
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  // if (friend.streak > 1)
+                  Style.streakText("12 🔥"),
+                  // Style.streakText("${friend.streak.toString()} 🔥"),
+                  // const SizedBox(height: 20),
                 ],
               ),
-            ],
-          ),
-          const Spacer(),
-          // if (friend.streak > 1)
-          Style.streakText("12 🔥"),
-          // Style.streakText("${friend.streak.toString()} 🔥"),
-          // const SizedBox(height: 20),
-        ],
-      ),
+            );
+          } else {
+            return const Center(
+              child: Text("No data"),
+            );
+          }
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+            ),
+          );
+        }
+      },
     );
   }
 }

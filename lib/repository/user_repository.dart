@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/api/user_api.dart';
+import 'package:habit_app_front/models/dropdown_friend.dart';
+import 'package:habit_app_front/response/friends%20info/load_friend_response.dart';
 
 import '../models/user.dart';
 import '../response/user info/load_user_response.dart';
@@ -14,4 +16,7 @@ class UserRepository{
   Future<LoadUserResponse?> userInfo() async{
     return UserApi().userInfo();
   } 
+  Future<List<DropdownFriend?>> userFriend() async{
+    return UserApi().userFriend();
+  }
 }

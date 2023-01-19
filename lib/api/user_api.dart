@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_app_front/response/friends%20info/load_friend_response.dart';
+import 'package:habit_app_front/validators.dart';
 
+import '../models/dropdown_friend.dart';
 import '../models/user.dart';
 import '../response/login_response.dart';
 import '../response/user info/load_user_response.dart';
@@ -70,12 +73,12 @@ class UserApi{
 
       if (response.statusCode == 200) {
         // debugPrint(response.data.toString());
-        print('first');
+        // print('first');
         // print(response.data);
         // print(response.data);
         loaduserResponse = LoadUserResponse.fromJson(response.data);
-        print(loaduserResponse.data!.fullname);
-        print('last');
+        // print(loaduserResponse.data!.fullname);
+        // print('last');
       } else {
         loaduserResponse = null;
       }
@@ -85,4 +88,48 @@ class UserApi{
     // debugPrint(userResponse.toString());
     return loaduserResponse;
   }
+  Future<List<DropdownFriend?>> userFriend() async{
+    Future.delayed(Duration(seconds: 2),(){});
+    LoadFriendResponse? loadfriendresponse;
+    List<DropdownFriend?> friendList = [];
+
+    const url = baseUrl + getFriendUrl;
+    try{
+      var dio = HttpServices().getDioInstance();
+      Response response = await dio.get(url,
+          options: Options(
+            headers: {
+              HttpHeaders.authorizationHeader: "Bearer $token",
+            },
+          ));
+
+      if (response.statusCode == 200) {
+        // debugPrint(response.data.toString());
+        // print('first');
+        // print(response.data);
+        // print(response.data);
+        loadfriendresponse = LoadFriendResponse.fromJson(response.data);
+
+        for(var data in loadfriendresponse.data!){
+          // debugPrint(data.fullname);
+          friendList.add(DropdownFriend(
+            id:data.id,
+            username: data.username,
+            email:data.email,
+            fullname: data.fullname
+          ));
+        }
+        // print(friendList);
+        // print(loadfriendresponse.success);
+        // print('last');
+      } else {
+        friendList = [];
+      }
+    }
+    catch(e){
+      throw Exception(e);
+    }
+    return friendList;
+  }
+  
 }

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'load_user2_response.g.dart';
 
 //flutter pub run build_runner build
@@ -10,7 +11,6 @@ class LoadUser2Response {
   String? username;
   String? email;
   String? profile_pic;
-  
 
   LoadUser2Response({
     this.fullname,
