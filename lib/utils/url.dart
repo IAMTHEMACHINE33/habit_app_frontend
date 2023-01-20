@@ -6,4 +6,5 @@ const getUserUrl = "user/load";
 const getFriendUrl = "user/load/friends";
 const addTaskUrl = "task/add";
 const addTaskPeerUrl = "task/add_peer";
+const getUserTaskUrl = "task/load";
 String? token;

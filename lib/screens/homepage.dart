@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:habit_app_front/repository/task_repository.dart';
+import 'package:habit_app_front/response/task%20info/load_task_response.dart';
 import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
@@ -304,8 +306,8 @@ class Snaprow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List?>(
-      future: UserRepository().userFriend(),
+    return FutureBuilder<LoadTaskResponse?>(
+      future: TaskRepository().userTask(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {
