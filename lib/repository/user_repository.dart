@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/api/user_api.dart';
 import 'package:habit_app_front/models/dropdown_friend.dart';
@@ -18,5 +20,8 @@ class UserRepository{
   } 
   Future<List<DropdownFriend?>> userFriend() async{
     return UserApi().userFriend();
+  }
+  Future<bool> uploadProfile(File? image) async{
+    return UserApi().uploadProfile(image);
   }
 }
