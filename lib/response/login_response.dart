@@ -5,8 +5,9 @@ part 'login_response.g.dart';
 class LoginResponse{
   bool? success;
   String? token;
+  String? userId;
 
-  LoginResponse({this.success, this.token});
+  LoginResponse({this.success, this.token,this.userId});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);

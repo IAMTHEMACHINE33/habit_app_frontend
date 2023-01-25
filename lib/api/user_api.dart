@@ -50,6 +50,7 @@ class UserApi {
       if (response.statusCode == 200) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
+        userId = loginResponse.userId;
         if (loginResponse.success == true) {
           isLogin = true;
         }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:habit_app_front/api/http_services.dart';
 import 'package:habit_app_front/utils/url.dart';
+import 'package:http_parser/http_parser.dart';
 
 import '../models/task.dart';
 import '../response/Task add/load_task_id.dart';
@@ -64,20 +65,55 @@ class TaskApi {
       response = await dio.get(
         url,
         options: Options(
-          headers: {
-            HttpHeaders.authorizationHeader:"Bearer $token"
-          }
-        ),
+            headers: {HttpHeaders.authorizationHeader: "Bearer $token"}),
       );
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         loadtaskresponse = LoadTaskResponse.fromJson(response.data);
         print(loadtaskresponse.data![0].task_name);
-      }else{
+      } else {
         loadtaskresponse = null;
       }
     } catch (e) {
       throw Exception(e);
     }
     return loadtaskresponse;
+  }
+
+  Future<bool> uploadTaskProof(File? image) async {
+    Future.delayed(Duration(seconds: 2), () {});
+    bool isUploaded = false;
+    const url = baseUrl + uploadTaskProofUrl;
+    String fileName = image!.path.split("/").last;
+    FormData formData = new FormData.fromMap({
+      "profile_pic": await MultipartFile.fromFile(
+        image.path,
+        filename: fileName,
+        contentType: MediaType("image", "jpg"),
+      ),
+      "type": "image/jpg"
+    });
+    var dio = HttpServices().getDioInstance();
+    try {
+      Response response = await dio.post(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: "Bearer $token",
+            "Content-Type": "multipat/form-data"
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print("Upload Success!");
+        isUploaded = true;
+        return isUploaded;
+      } else {
+        print("Upload failed!");
+        return isUploaded;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

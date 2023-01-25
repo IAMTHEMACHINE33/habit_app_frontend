@@ -8,4 +8,7 @@ const addTaskUrl = "task/add";
 const addTaskPeerUrl = "task/add_peer";
 const getUserTaskUrl = "task/load";
 const uplaodProfilePicUrl = "user/profile_pic";
+const loadTaskUrl = "task/load";
+const uploadTaskProofUrl = "task/proof";
 String? token;
+String? userId;

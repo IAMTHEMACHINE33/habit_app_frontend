@@ -8,6 +8,7 @@ import 'package:habit_app_front/screens/SignpPage.dart';
 import 'package:habit_app_front/screens/badgesPage.dart';
 import 'package:habit_app_front/screens/calenderpage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
+import 'package:habit_app_front/screens/taskStoriesPage.dart';
 import 'package:habit_app_front/widgets/pop_up/popUpPage.dart';
 import 'package:habit_app_front/screens/profilePage.dart';
 import 'package:habit_app_front/screens/searchPage.dart';
@@ -32,6 +33,7 @@ class _NavbarPageState extends State<NavbarPage> {
     // CameraPage123(),
     // CameraGalleryScreen(),
     const SearchBarPage(),
+    // StoryPage(),
     // ProfilePage(),
     BadgePage(),
     // const MyWidget(),

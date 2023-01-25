@@ -10,10 +10,11 @@ part 'load_task2_response.g.dart';
 class LoadTask2Response{
   String? task_name;
   String? penalty;
+  String? streak;
   List<LoadTask21UserResponse>? include_users;
   List<LoadTask22ProofResponse>? proof;
 
-  LoadTask2Response({this.task_name,this.penalty,this.include_users,this.proof});
+  LoadTask2Response({this.task_name,this.penalty,this.include_users,this.proof,this.streak});
 
   factory LoadTask2Response.fromJson(Map<String, dynamic> json)=>_$LoadTask2ResponseFromJson(json);
 

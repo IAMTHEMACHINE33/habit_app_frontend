@@ -18,12 +18,14 @@ LoadTask2Response _$LoadTask2ResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) =>
               LoadTask22ProofResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      streak: json['streak'] as String?,
     );
 
 Map<String, dynamic> _$LoadTask2ResponseToJson(LoadTask2Response instance) =>
     <String, dynamic>{
       'task_name': instance.task_name,
       'penalty': instance.penalty,
+      'streak': instance.streak,
       'include_users': instance.include_users,
       'proof': instance.proof,
     };

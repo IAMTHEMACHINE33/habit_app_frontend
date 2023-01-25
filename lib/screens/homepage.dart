@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:habit_app_front/repository/task_repository.dart';
 import 'package:habit_app_front/response/task%20info/load_task_response.dart';
+import 'package:habit_app_front/screens/taskStoriesPage.dart';
 import 'package:habit_app_front/size_configs.dart';
 
 import '../app_styles.dart';
@@ -265,27 +266,6 @@ class Homepage extends StatelessWidget {
                     Column(
                       children: [
                         Snaprow(),
-                        const SizedBox(height: 5),
-                        TrainingSession(
-                            StartTime: '3:30',
-                            EndTime: '4:30',
-                            SessionName: 'Cycling',
-                            imageName: 'cyclist.png',
-                            StackColor: kLightBoxPink),
-                        TrainingSession(
-                          StartTime: '8:00',
-                          EndTime: '9:30',
-                          SessionName: 'Strength',
-                          imageName: 'sit-up.png',
-                          StackColor: kLightBoxBlue,
-                        ),
-                        TrainingSession(
-                          StartTime: '10:00',
-                          EndTime: '11:30',
-                          SessionName: 'Running',
-                          imageName: 'runner.png',
-                          StackColor: kLightBoxBlue,
-                        ),
                       ],
                     ),
                   ],
@@ -311,48 +291,73 @@ class Snaprow extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {
-            // print(snapshot.data![1]);
-            return SizedBox(
-              height: 50,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                children: [
-                  // const SizedBox(width: 15),
-                  Container(
-                      width: 50,
+                  String image ="";
+                  int? ind;
+                  int b =-1;
+                  int c =-1;
+                  bool d=false;
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data!.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // print(snapshot.data!.data![index].proof!.length);
+                  
+                  
+                  return TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StoryPage(storyImg:snapshot.data!.data![index].proof!.isNotEmpty && snapshot.data!.data![index].proof!.last.daily_proof!.isNotEmpty?"${snapshot.data!.data![index].proof!.last.daily_proof!.last.image}":"image"),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
                       height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child:  Image.asset('assets/icons/man-avatar.png')
-                      // Image.asset(friend.image),
-                      ),
-                  const SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 5),
-                      Style.friendName("a"),
-                      Row(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
                         children: [
-                          // Friend.statusIconMap[friend.status]!,
-                          Friend.statusIconMap[8]!,
-                          const SizedBox(width: 7),
-                          Style.chatInfo(
-                              // "${Friend.statusTextMap[friend.status]!} • ${friend.time}"),
-                              "asdasd")
+                          // const SizedBox(width: 15),
+                          Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Image.asset('assets/icons/man-avatar.png')
+                              // Image.asset(friend.image),
+                              ),
+                          const SizedBox(width: 15),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              Style.friendName(
+                                  "${snapshot.data!.data![index].task_name}"),
+                              Row(
+                                children: [
+                                  // Friend.statusIconMap[friend.status]!,
+                                  Friend.statusIconMap[8]!,
+                                  const SizedBox(width: 7),
+                                  Style.chatInfo(
+                                      "${snapshot.data!.data![index].penalty}")
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          // if (friend.streak > 1)
+                          snapshot.data!.data![index].streak != "0"
+                              ? Style.streakText(
+                                  "${snapshot.data!.data![index].streak} 🔥")
+                              : Style.streakText("")
+                          // Style.streakText("${friend.streak.toString()} 🔥"),
+                          // const SizedBox(height: 20),
                         ],
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  // if (friend.streak > 1)
-                  Style.streakText("12 🔥"),
-                  // Style.streakText("${friend.streak.toString()} 🔥"),
-                  // const SizedBox(height: 20),
-                ],
-              ),
-            );
+                    ),
+                  );
+                });
           } else {
             return const Center(
               child: Text("No data"),
