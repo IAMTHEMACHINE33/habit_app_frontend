@@ -8,13 +8,15 @@ part 'load_task2_response.g.dart';
 
 @JsonSerializable()
 class LoadTask2Response{
+  @JsonKey(name: "_id")
+  String? id;
   String? task_name;
   String? penalty;
   String? streak;
   List<LoadTask21UserResponse>? include_users;
   List<LoadTask22ProofResponse>? proof;
 
-  LoadTask2Response({this.task_name,this.penalty,this.include_users,this.proof,this.streak});
+  LoadTask2Response({this.id,this.task_name,this.penalty,this.include_users,this.proof,this.streak});
 
   factory LoadTask2Response.fromJson(Map<String, dynamic> json)=>_$LoadTask2ResponseFromJson(json);
 

@@ -4,6 +4,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/repository/user_repository.dart';
 
+import '../utils/messages.dart';
+import 'NavbarPage.dart';
+
 class CameraProfilePage extends StatefulWidget {
   const CameraProfilePage({Key? key}) : super(key: key);
 
@@ -60,6 +63,13 @@ class _CameraProfilePageState extends State<CameraProfilePage> {
           print("Before img");
           UserRepository userRepository = UserRepository();
           bool isuploaded = await UserRepository().uploadProfile(img);
+          if(isuploaded){
+            displaySuccessMessage(context, "Profile pictre updated!");
+                
+          }
+          else{
+            displayErrorMessage(context, "Profile pictre update failed!");
+          }
           print("after img");
         }
       }

@@ -4,16 +4,20 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_app_front/models/task.dart';
+import 'package:habit_app_front/repository/task_repository.dart';
 import 'package:habit_app_front/screens/NavbarPage.dart';
 
 import '../app_styles.dart';
+import '../utils/messages.dart';
 import '../utils/url.dart';
 import '../widgets/buttons/my_text_button.dart';
 import '../widgets/stories/story_bar.dart';
 
 class StoryPage extends StatefulWidget {
   final String storyImg;
-  const StoryPage({Key? key, required this.storyImg}) : super(key: key);
+  final String taskId;
+  const StoryPage({Key? key, required this.storyImg,required this.taskId}) : super(key: key);
 
   @override
   _StoryPageState createState() => _StoryPageState();
@@ -28,7 +32,7 @@ class _StoryPageState extends State<StoryPage> {
   void initState() {
     super.initState();
     myStories = [
-      MyStory1(storyImg: widget.storyImg ?? ''),
+      MyStory1(storyImg: widget.storyImg,taskId: widget.taskId),
       // MyStory2(),
       // MyStory3()
     ];
@@ -128,9 +132,34 @@ class _StoryPageState extends State<StoryPage> {
   }
 }
 
-class MyStory1 extends StatelessWidget {
+class MyStory1 extends StatefulWidget {
   final String storyImg;
-  const MyStory1({Key? key, required this.storyImg}) : super(key: key);
+  final String taskId;
+  const MyStory1({Key? key, required this.storyImg,required this.taskId}) : super(key: key);
+
+  @override
+  State<MyStory1> createState() => _MyStory1State();
+}
+
+class _MyStory1State extends State<MyStory1> {
+  void onAccept()async{
+    try{
+      TaskRepository taskRepository = TaskRepository();
+       bool isAccepted = await TaskRepository()
+            .acceptTask(widget.taskId);
+        if (isAccepted) {
+          displaySuccessMessage(context, "Proof Accepted!");
+          Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavbarPage()));
+
+          });
+        } else {
+          displayErrorMessage(context, "Proof Didn't Accepted!");
+        }
+    }catch(e){
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +173,7 @@ class MyStory1 extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.green[200],
         body: SingleChildScrollView(
-            child: storyImg != "image"
+            child: widget.storyImg != "image"
                 ? Stack(
                     children: [
                       Positioned(
@@ -153,7 +182,7 @@ class MyStory1 extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage("$pic_Url${storyImg}"),
+                              image: NetworkImage("$pic_Url${widget.storyImg}"),
                             ),
                           ),
                         ),
@@ -161,7 +190,9 @@ class MyStory1 extends StatelessWidget {
                       Positioned(bottom:0,
                         child: MyTextButton(
                           buttonName: 'ACCEPT',
-                          onPressed: () {},
+                          onPressed: () async {
+                            bool isAccepted = await TaskRepository().acceptTask(widget.taskId);
+                          },
                           bgColor: kPrimaryColor,
                         ),
                       ),

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../repository/user_repository.dart';
 import '../../response/user info/load_user_response.dart';
+import '../../screens/cameraProfilePage.dart';
+import '../../screens/cameraTaskPage.dart';
+import '../../utils/messages.dart';
 import '../../utils/url.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -29,7 +32,18 @@ class ProfileWidget extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 4,
-            child: buildEditIcon(color),
+            child: GestureDetector(
+              onTap: (() {
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraProfilePage()),
+                );
+                });
+                
+              }),
+              child: buildEditIcon(color),
+            ),
           ),
         ],
       ),
@@ -55,9 +69,9 @@ class ProfileWidget extends StatelessWidget {
                   // color: Colors.amber,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    image:  DecorationImage(
-                      image:  NetworkImage(
-                                            "$pic_Url${snapshot.data!.data!.profile_pic}"),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "$pic_Url${snapshot.data!.data!.profile_pic}"),
                     ),
                   ),
                 ),

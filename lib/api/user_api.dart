@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/response/friends%20info/load_friend_response.dart';
-import 'package:habit_app_front/validators.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:path_provider/path_provider.dart';
 import '../models/dropdown_friend.dart';
 import '../models/user.dart';
 import '../response/login_response.dart';
@@ -170,4 +168,25 @@ class UserApi {
       throw Exception(e);
     }
   }
+  // Future<List<PeopleResponse?>> userShow() async{
+  //   Future.delayed(Duration(seconds: 2), () {});
+  //   List<PeopleResponse?> peopleList=[];
+  //   Response response;
+  //   LoadUserAllResponse loadUserResponse;
+  //   const url = baseUrl+getAllUserUrl;
+  //   var dio = HttpServices().getDioInstance();
+  //   try{
+  //     response = await dio.get(url);
+  //     if(response.statusCode == 200){
+  //       print(response.data);
+  //       loadUserResponse = LoadUserAllResponse.fromJson(response.data);
+        
+        
+  //       return peopleList;  
+  //     }
+  //   }catch(e){
+  //     throw Exception(e);
+  //   }
+  //   return peopleList;
+  // }
 }

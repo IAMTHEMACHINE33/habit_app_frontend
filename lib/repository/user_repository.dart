@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:habit_app_front/api/user_api.dart';
 import 'package:habit_app_front/models/dropdown_friend.dart';
 import 'package:habit_app_front/response/friends%20info/load_friend_response.dart';
-
 import '../models/user.dart';
 import '../response/user info/load_user_response.dart';
 
@@ -24,4 +23,7 @@ class UserRepository{
   Future<bool> uploadProfile(File? image) async{
     return UserApi().uploadProfile(image);
   }
+  // Future<List<PeopleResponse?>> userShow() async{
+  //   return UserApi().userShow();
+  // }
 }

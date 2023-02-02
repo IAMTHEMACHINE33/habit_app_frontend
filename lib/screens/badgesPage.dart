@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../app_styles.dart';
 import '../repository/user_repository.dart';
 import '../response/user info/load_user_response.dart';
 import '../widgets/badge/donut_tab.dart';
@@ -20,9 +21,9 @@ class _BadgePageState extends State<BadgePage> {
     MyTab(
       iconPath: 'assets/icons/donut.png',
     ),
-    MyTab(
-      iconPath: 'assets/icons/burger.png',
-    ),
+    // MyTab(
+    //   iconPath: 'assets/icons/burger.png',
+    // ),
   ];
 
   @override
@@ -68,11 +69,12 @@ class _BadgePageState extends State<BadgePage> {
               // ),
               // tab bar
               TabBar(tabs: myTabs),
+              Text("Badges",style: kTitle2,),
               Expanded(
                 child: TabBarView(
                   children: [
                     DonutTab(),
-                    DonutTab(),
+                    // DonutTab(),
                   ],
                 ),
               )
@@ -127,14 +129,18 @@ class _BadgePageState extends State<BadgePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'About',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Center(
+              child: Text(
+                'About',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 16),
-            Text(
-              "user.about",
-              style: TextStyle(fontSize: 16, height: 1.4),
+            Center(
+              child: Text(
+                "Trying to improve",
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
             ),
           ],
         ),

@@ -9,12 +9,14 @@ import 'package:habit_app_front/screens/badgesPage.dart';
 import 'package:habit_app_front/screens/calenderpage.dart';
 import 'package:habit_app_front/screens/homepage.dart';
 import 'package:habit_app_front/screens/taskStoriesPage.dart';
+import 'package:habit_app_front/screens/tr.dart';
 import 'package:habit_app_front/widgets/pop_up/popUpPage.dart';
 import 'package:habit_app_front/screens/profilePage.dart';
 import 'package:habit_app_front/screens/searchPage.dart';
 import 'package:habit_app_front/screens/try.dart';
 
 import 'cameraProfilePage.dart';
+import 'cameraTaskPage.dart';
 
 class NavbarPage extends StatefulWidget {
   const NavbarPage({super.key});
@@ -45,7 +47,7 @@ class _NavbarPageState extends State<NavbarPage> {
       onVerticalDragUpdate: (dragUpdateDetails) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  CameraProfilePage()),
+          MaterialPageRoute(builder: (context) =>  CameraTaskPage()),
         );
       },
       child: Scaffold(
@@ -74,16 +76,16 @@ class _NavbarPageState extends State<NavbarPage> {
                   text: "Home",
                 ),
                 GButton(
-                  icon: Icons.favorite_border,
-                  text: "Likes",
+                  icon: Icons.calendar_month_outlined,
+                  text: "Streak",
                 ),
                 GButton(
                   icon: Icons.search,
                   text: "Search",
                 ),
                 GButton(
-                  icon: Icons.settings,
-                  text: "Settings",
+                  icon: Icons.person_outline_sharp,
+                  text: "Profile",
                 ),
               ],
             ),

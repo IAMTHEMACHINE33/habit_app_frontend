@@ -5,6 +5,7 @@ import '../../validators.dart';
 import '../../widgets/widgets.dart';
 import '../models/user.dart';
 import '../repository/user_repository.dart';
+import '../utils/messages.dart';
 import 'LoginPage.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -32,9 +33,14 @@ class _SignUpPageState extends State<SignUpPage> {
       
       bool isSignup = await UserRepository().register(user);
       debugPrint(isSignup.toString());
-      if(isSignup){
-        Navigator.pushNamed(context, 'login');
-      }
+      if (isSignup) {
+          displaySuccessMessage(context, "Registration Successfull!");
+          Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+          });
+        } else {
+          displayErrorMessage(context, "Registration Unsuccessful!");
+        }
     };
   }
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/repository/task_repository.dart';
 import 'package:habit_app_front/repository/user_repository.dart';
+import 'package:habit_app_front/screens/NavbarPage.dart';
 
 import '../../app_styles.dart';
 import '../../models/dropdown_friend.dart';
 import '../../models/task.dart';
+import '../../utils/messages.dart';
 import '../buttons/my_text_button.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
@@ -30,8 +32,14 @@ class _AddTodoPopupCardState extends State<AddTodoPopupCard> {
       try{
         TaskRepository taskRepository = TaskRepository();
         bool isAdded = await TaskRepository().addTask(_task_nameController.text,_penaltyControler.text,_value);
-        if(isAdded){
-          debugPrint("Done");
+        
+        if (isAdded) {
+          displaySuccessMessage(context, "Task Added!");
+          Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavbarPage()));
+          });
+        } else {
+          displayErrorMessage(context, "Task Didn't Added!");
         }
       }
       catch(e){

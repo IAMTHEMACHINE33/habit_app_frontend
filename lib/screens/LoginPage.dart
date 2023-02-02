@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/repository/user_repository.dart';
+import 'package:habit_app_front/screens/NavbarPage.dart';
 import 'package:habit_app_front/screens/SignpPage.dart';
 import '../../app_styles.dart';
 import '../../size_configs.dart';
 import '../../validators.dart';
 import '../../widgets/widgets.dart';
-
-// its best practice to do relative imports
+import '../utils/messages.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,19 +17,25 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _loginKey = GlobalKey<FormState>();
-  final _usernameControler =TextEditingController();
+  final _usernameControler = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void onSubmit()async {
-    if(_loginKey.currentState!.validate()){
-      try{
+  void onSubmit() async {
+    if (_loginKey.currentState!.validate()) {
+      try {
         UserRepository userRepository = UserRepository();
-        bool isLogin = await UserRepository().login(_usernameControler.text, _passwordController.text);
-        if(isLogin){
-          Navigator.pushNamed(context, '/nav');
+        bool isLogin = await UserRepository()
+            .login(_usernameControler.text, _passwordController.text);
+        if (isLogin) {
+          displaySuccessMessage(context, "Login Successful!");
+          Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavbarPage()));
+
+          });
+        } else {
+          displayErrorMessage(context, "Wrong username or password!");
         }
-      }
-      catch(e){
+      } catch (e) {
         debugPrint(e.toString());
       }
     }
@@ -146,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                                             hint: 'Username',
                                             icon: Icons.email_outlined,
                                             fillColor: kScaffoldBackground,
-                                            inputType:TextInputType.name,
+                                            inputType: TextInputType.name,
                                             inputAction: TextInputAction.next,
                                             focusNode: _loginFocusNodes[0],
                                             validator: usernameValidator,
@@ -176,8 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   // ForgotPasswordPage()
-                                                  SignUpPage()
-                                                  ));
+                                                  SignUpPage()));
                                     },
                                     child: Text(
                                       'Forgot Password?',

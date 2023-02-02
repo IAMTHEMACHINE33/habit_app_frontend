@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_app_front/repository/user_repository.dart';
+import 'package:habit_app_front/widgets/proof/task_popup.dart';
 
 import '../repository/task_repository.dart';
+import '../widgets/pop_up/hero_dialog_route.dart';
 
 class CameraTaskPage extends StatefulWidget {
   const CameraTaskPage({Key? key}) : super(key: key);
@@ -60,8 +62,9 @@ class _CameraTaskPageState extends State<CameraTaskPage> {
            img =File(file.path);
           });
           print("Before img");
-          TaskRepository taskRepository = TaskRepository();
-          bool isuploaded = await TaskRepository().uploadTaskProof(img);
+           Navigator.of(context).push(HeroDialogRoute(builder: (context) {
+                                return ProofPopupCard(img: img);
+                              }));
           print("after img");
         }
       }

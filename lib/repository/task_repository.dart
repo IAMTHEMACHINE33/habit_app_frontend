@@ -12,7 +12,11 @@ class TaskRepository{
   Future<LoadTaskResponse?> userTask() async{
     return TaskApi().userTask();
   }
-  Future<bool> uploadTaskProof(File? image) async{
-    return TaskApi().uploadTaskProof(image);
+  Future<bool> acceptTask(String? task_id) async{
+    return TaskApi().acceptTask(task_id);
   }
+  Future<bool> uploadTaskProof(File? image, String? task_id) async{
+    return TaskApi().uploadTaskProof(image,task_id);
+  }
+ 
 }

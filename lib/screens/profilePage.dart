@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app_front/screens/cameraProfilePage.dart';
 
 import '../models/user.dart';
 import '../widgets/profile/appbar_widget.dart';
@@ -22,9 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               ProfileWidget(
                 // imagePath: '',
-                onClicked: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProfilePage()),
+                onClicked: () {
+                   Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CameraProfilePage()),
                   );
                   setState(() {});
                 },
@@ -72,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              "user.about",
+              "TRYING TO IMPROVE",
               style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],

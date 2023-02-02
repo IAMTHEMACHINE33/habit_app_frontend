@@ -8,6 +8,7 @@ part of 'load_task2_response.dart';
 
 LoadTask2Response _$LoadTask2ResponseFromJson(Map<String, dynamic> json) =>
     LoadTask2Response(
+      id: json['_id'] as String?,
       task_name: json['task_name'] as String?,
       penalty: json['penalty'] as String?,
       include_users: (json['include_users'] as List<dynamic>?)
@@ -23,6 +24,7 @@ LoadTask2Response _$LoadTask2ResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$LoadTask2ResponseToJson(LoadTask2Response instance) =>
     <String, dynamic>{
+      '_id': instance.id,
       'task_name': instance.task_name,
       'penalty': instance.penalty,
       'streak': instance.streak,

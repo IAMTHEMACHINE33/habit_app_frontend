@@ -302,13 +302,13 @@ class Snaprow extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   // print(snapshot.data!.data![index].proof!.length);
                   
-                  
+                  print(snapshot.data!.data![index].id);
                   return TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => StoryPage(storyImg:snapshot.data!.data![index].proof!.isNotEmpty && snapshot.data!.data![index].proof!.last.daily_proof!.isNotEmpty?"${snapshot.data!.data![index].proof!.last.daily_proof!.last.image}":"image"),
+                          builder: (context) => StoryPage(storyImg:snapshot.data!.data![index].proof!.isNotEmpty && snapshot.data!.data![index].proof!.last.daily_proof!.isNotEmpty?"${snapshot.data!.data![index].proof!.last.daily_proof!.last.image}":"image",taskId:"${snapshot.data!.data![index].id}"),
                         ),
                       );
                     },

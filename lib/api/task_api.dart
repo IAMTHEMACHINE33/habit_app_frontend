@@ -64,8 +64,8 @@ class TaskApi {
     try {
       response = await dio.get(
         url,
-        options: Options(
-            headers: {HttpHeaders.authorizationHeader: "Bearer $token"}),
+          options: Options(
+              headers: {HttpHeaders.authorizationHeader: "Bearer $token"}),
       );
       if (response.statusCode == 200) {
         loadtaskresponse = LoadTaskResponse.fromJson(response.data);
@@ -78,20 +78,46 @@ class TaskApi {
     }
     return loadtaskresponse;
   }
+  Future<bool> acceptTask(String? task_id) async{
+    Future.delayed(Duration(seconds: 2), () {});
+    bool isAccepted = false;
+    Response response;
+    const url = baseUrl + acceptTaskUrl;
+    var dio = HttpServices().getDioInstance();
+    try{
+      response = await dio.put(
+        url,
+        options: Options(
+            headers: {HttpHeaders.authorizationHeader: "Bearer $token"}),
+        data:{
+          "task_id":task_id
+        }
+      );
+      if(response.statusCode == 200){
+        isAccepted=true;
+        print(isAccepted);
+        return isAccepted;
+      }
+    }catch(e){
+      throw Exception(e);
+    }
+    return isAccepted;
+  }
 
-  Future<bool> uploadTaskProof(File? image) async {
+  Future<bool> uploadTaskProof(File? image,String? task_id) async {
     Future.delayed(Duration(seconds: 2), () {});
     bool isUploaded = false;
     const url = baseUrl + uploadTaskProofUrl;
     String fileName = image!.path.split("/").last;
     FormData formData = new FormData.fromMap({
-      "profile_pic": await MultipartFile.fromFile(
+      "task_id":task_id,
+      "proof_img": await MultipartFile.fromFile(
         image.path,
         filename: fileName,
         contentType: MediaType("image", "jpg"),
       ),
-      "type": "image/jpg"
     });
+    
     var dio = HttpServices().getDioInstance();
     try {
       Response response = await dio.post(
@@ -104,8 +130,9 @@ class TaskApi {
           },
         ),
       );
+      print(response.data);
       if (response.statusCode == 200) {
-        print("Upload Success!");
+        print("Upload Proof Success!");
         isUploaded = true;
         return isUploaded;
       } else {
